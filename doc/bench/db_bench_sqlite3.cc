@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <sqlite3.h>
+#include "sqlite3.h"
 #include "util/histogram.h"
 #include "util/random.h"
 #include "util/testutil.h"

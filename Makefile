@@ -117,8 +117,8 @@ $(LIBRARY): $(LIBOBJECTS)
 db_bench: db/db_bench.o $(LIBOBJECTS) $(TESTUTIL)
 	$(CXX) $(LDFLAGS) db/db_bench.o $(LIBOBJECTS) $(TESTUTIL) -o $@ $(LIBS)
 
-db_bench_sqlite3: doc/bench/db_bench_sqlite3.o $(LIBOBJECTS) $(TESTUTIL)
-	$(CXX) $(LDFLAGS) doc/bench/db_bench_sqlite3.o $(LIBOBJECTS) $(TESTUTIL) -o $@ -lsqlite3 $(LIBS)
+db_bench_sqlite3: doc/bench/db_bench_sqlite3.o doc/bench/sqlite3.o $(LIBOBJECTS) $(TESTUTIL)
+	$(CXX) $(LDFLAGS) doc/bench/db_bench_sqlite3.o doc/bench/sqlite3.o $(LIBOBJECTS) $(TESTUTIL) -o $@ $(LIBS)
 
 db_bench_tree_db: doc/bench/db_bench_tree_db.o $(LIBOBJECTS) $(TESTUTIL)
 	$(CXX) $(LDFLAGS) doc/bench/db_bench_tree_db.o $(LIBOBJECTS) $(TESTUTIL) -o $@ -lkyotocabinet $(LIBS)
