@@ -2,6 +2,9 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file. See the AUTHORS file for names of contributors.
 
+CC := arm-linux-androideabi-gcc
+CXX := arm-linux-androideabi-g++
+TARGET_OS := OS_ANDROID_CROSSCOMPILE
 #-----------------------------------------------
 # Uncomment exactly one of the lines labelled (A), (B), and (C) below
 # to switch between compilation modes.
