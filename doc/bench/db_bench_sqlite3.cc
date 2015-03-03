@@ -42,7 +42,7 @@ static const char* FLAGS_benchmarks =
     ;
 
 // Number of key/values to place in database
-static int FLAGS_num = 1000000;
+static int FLAGS_num = 5000;
 
 // Number of read operations to do.  If negative, do FLAGS_num reads.
 static int FLAGS_reads = -1;
@@ -425,10 +425,16 @@ class Benchmark {
     // Open database
     std::string tmp_dir;
     Env::Default()->GetTestDirectory(&tmp_dir);
+
+//    snprintf(file_name, sizeof(file_name),
+//             "%s/dbbench_sqlite3-%d.db",
+//             tmp_dir.c_str(),
+//             db_num_);
+
     snprintf(file_name, sizeof(file_name),
-             "%s/dbbench_sqlite3-%d.db",
-             tmp_dir.c_str(),
+             "dbbench_sqlite3-%d.db",
              db_num_);
+
     status = sqlite3_open(file_name, &db_);
     if (status) {
       fprintf(stderr, "open error: %s\n", sqlite3_errmsg(db_));

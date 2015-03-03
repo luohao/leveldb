@@ -62,7 +62,7 @@ static const char* FLAGS_benchmarks =
     ;
 
 // Number of key/values to place in database
-static int FLAGS_num = 1000000;
+static int FLAGS_num = 5000;
 
 // Number of read operations to do.  If negative, do FLAGS_num reads.
 static int FLAGS_reads = -1;
@@ -462,7 +462,7 @@ class Benchmark {
         method = &Benchmark::WriteRandom;
       } else if (name == Slice("fillsync")) {
         fresh_db = true;
-        num_ /= 1000;
+        //num_ /= 1000;
         write_options_.sync = true;
         method = &Benchmark::WriteRandom;
       } else if (name == Slice("fill100K")) {
@@ -979,9 +979,10 @@ int main(int argc, char** argv) {
   }
 
   // Choose a location for the test database if none given with --db=<path>
+  // default test dir is in the current directory
   if (FLAGS_db == NULL) {
-      leveldb::Env::Default()->GetTestDirectory(&default_db_path);
-      default_db_path += "/dbbench";
+      //leveldb::Env::Default()->GetTestDirectory(&default_db_path);
+      default_db_path += "./dbbench";
       FLAGS_db = default_db_path.c_str();
   }
 
