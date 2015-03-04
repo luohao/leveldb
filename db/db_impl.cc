@@ -33,6 +33,8 @@
 #include "util/logging.h"
 #include "util/mutexlock.h"
 
+#include "timer.h"
+
 namespace leveldb {
 
 const int kNumNonTableCacheFiles = 10;
@@ -1189,6 +1191,10 @@ Status DBImpl::Write(const WriteOptions& options, WriteBatch* my_batch) {
     // into mem_.
     {
       mutex_.Unlock();
+
+      // XXX(hluo): logging record start
+      // TODO(hluo): add meters to record
+      stopwatch::get().start();
       status = log_->AddRecord(WriteBatchInternal::Contents(updates));
       bool sync_error = false;
       if (status.ok() && options.sync) {
@@ -1197,6 +1203,9 @@ Status DBImpl::Write(const WriteOptions& options, WriteBatch* my_batch) {
           sync_error = true;
         }
       }
+      // XXX(hluo): logging record done
+      stopwatch::get().stop();
+
       if (status.ok()) {
         status = WriteBatchInternal::InsertInto(updates, mem_);
       }

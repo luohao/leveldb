@@ -8,6 +8,7 @@
 #include "util/histogram.h"
 #include "util/random.h"
 #include "util/testutil.h"
+#include "timer0.h"
 
 // Comma-separated list of operations to run in the specified order
 //   Actual benchmarks:
@@ -381,7 +382,9 @@ class Benchmark {
         WalCheckpoint(db_);
       } else if (name == Slice("fillrandsync")) {
         write_sync = true;
+        //stopwatch_clear(get_stopwatch());
         Write(write_sync, RANDOM, FRESH, num_ / 100, FLAGS_value_size, 1);
+        //stopwatch_print(get_stopwatch());
         WalCheckpoint(db_);
       } else if (name == Slice("fillseqsync")) {
         write_sync = true;
