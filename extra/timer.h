@@ -111,7 +111,7 @@ class stopwatch {
   inline void
   print()
   {
-    std::cerr << "Average Time '" << sum_ / count_ << "ms, Max " << max_ << " ms" << std::endl;
+    std::cerr << "Average Time '" << sum_ / count_ << " us, Max " << max_ << " us" << std::endl;
   }
 };
 
