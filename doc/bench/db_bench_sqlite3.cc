@@ -10,6 +10,10 @@
 #include "util/testutil.h"
 #include "timer0.h"
 
+// global timer
+// XXX: this is nasty... is there a better way to do this in a mixed C / C++ proj?
+extern struct stopwatch sw;
+
 // Comma-separated list of operations to run in the specified order
 //   Actual benchmarks:
 //
@@ -382,13 +386,18 @@ class Benchmark {
         WalCheckpoint(db_);
       } else if (name == Slice("fillrandsync")) {
         write_sync = true;
-        //stopwatch_clear(get_stopwatch());
-        Write(write_sync, RANDOM, FRESH, num_ / 100, FLAGS_value_size, 1);
-        //stopwatch_print(get_stopwatch());
+
+        stopwatch_clear(&sw);      
+        Write(write_sync, RANDOM, FRESH, num_, FLAGS_value_size, 1);
+        stopwatch_print(&sw);
+        
         WalCheckpoint(db_);
       } else if (name == Slice("fillseqsync")) {
         write_sync = true;
-        Write(write_sync, SEQUENTIAL, FRESH, num_ / 100, FLAGS_value_size, 1);
+        stopwatch_clear(&sw); 
+        Write(write_sync, SEQUENTIAL, FRESH, num_, FLAGS_value_size, 1);
+        stopwatch_print(&sw);
+
         WalCheckpoint(db_);
       } else if (name == Slice("fillrand100K")) {
         Write(write_sync, RANDOM, FRESH, num_ / 1000, 100 * 1000, 1);

@@ -22,6 +22,8 @@ struct stopwatch {
  uint64_t start_;
 };
 
+struct stopwatch sw;
+
 // use static variable in a function to mimic the singleton...
 struct stopwatch*
 get_stopwatch()
