@@ -25,7 +25,8 @@
 //      fillseq       -- write N values in sequential key order in async mode
 //      fillrandom    -- write N values in random key order in async mode
 //      overwrite     -- overwrite N values in random key order in async mode
-//      fillsync      -- write N/100 values in random key order in sync mode
+//      fillsync      -- write N values in random key order in sync mode
+//      fillseqsync   -- write N values in sequential key order in sync mode
 //      fill100K      -- write N/1000 100K values in random order in async mode
 //      deleteseq     -- delete N keys in sequential order
 //      deleterandom  -- delete N keys in random order
@@ -46,6 +47,7 @@
 static const char* FLAGS_benchmarks =
     "fillseq,"
     "fillsync,"
+    "fillseqsync,"
     "fillrandom,"
     "overwrite,"
     "readrandom,"
@@ -467,6 +469,11 @@ class Benchmark {
         //num_ /= 1000;
         write_options_.sync = true;
         method = &Benchmark::WriteRandom;
+      } else if (name == Slice("fillseqsync")) {
+        fresh_db = true;
+        //num_ /= 1000;
+        write_options_.sync = true;
+        method = &Benchmark::WriteSeq;
       } else if (name == Slice("fill100K")) {
         fresh_db = true;
         num_ /= 1000;
